@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import Logo from '../assets/logo.png'
 function Register() {
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -13,7 +14,7 @@ function Register() {
       <FromContainer>
         <form onSubmit={(event)=>handleSubmit(event)}>
             <div className="brand">
-                <img src="" alt="" />
+                <img src={Logo} alt="" />
                 <h1>BroCode</h1>
             </div>
             <input type="text" name="username" id="username" placeholder='Username' onChange={e=>handleChange(e)}/>
@@ -27,5 +28,24 @@ function Register() {
     </>
   )
 }
-const FromContainer = styled.div``;
+const FromContainer = styled.div`
+height: 100vh;
+width: 100vw;
+display: flex;
+flex-direction: column;
+justify-content: center;
+gap: 1rem;
+align-items: center;
+background-color: #131324;
+.brand{
+  display : flex;
+  align-item: center;
+  gap: 1rem;
+  justify-content: center;
+  img{
+    height: 5rem;
+
+  }
+}
+`;
 export default Register
