@@ -25,7 +25,7 @@ export default function SetAvatar() {
 
     useEffect(async()=>{
         if(!localStorage.getItem('chat-app-user')){
-            navigate('/')
+            navigate('/login')
           }
     },[])
     const setProfilePicture = async () => {
