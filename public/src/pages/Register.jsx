@@ -22,10 +22,14 @@ function Register() {
     draggable: true,
     theme: "dark",
   }
+  useEffect(()=>{
+    if(localStorage.getItem('chat-app-user')){
+      navigate('/')
+    }
+  },[])
   const handleSubmit = async(event) => {
     event.preventDefault();
     if (handleValidation()) {
-      console.log('In vaildation', registerRoute)
       const { password, username, email } = values;
       const {data} = await axios.post(registerRoute, {username, email, password,});
       if(data.status === false){
@@ -72,7 +76,7 @@ function Register() {
           <input type="text" name="username" id="username" placeholder='Username' onChange={e => handleChange(e)} />
           <input type="email" name="email" id="email" placeholder='Email' onChange={e => handleChange(e)} />
           <input type="password" name="password" id="pass" placeholder='Password' onChange={e => handleChange(e)} />
-          <input type="password" name="confirmPassword" id="pass" placeholder='Confirm password' onChange={e => handleChange(e)} />
+          <input type="password" name="confirmPassword" id="confirmPass" placeholder='Confirm password' onChange={e => handleChange(e)} />
           <button type="submit">Create User</button>
           <span>Already have an account ?<Link to='/login'>Login</Link></span>
         </form>
