@@ -22,11 +22,17 @@ export default function SetAvatar() {
         draggable: true,
         theme: "dark",
     };
+
+    useEffect(async()=>{
+        if(!localStorage.getItem('chat-app-user')){
+            navigate('/')
+          }
+    },[])
     const setProfilePicture = async () => {
         if (selectedAvatar === undefined) {
             toast.error("please select an avatar", toastOptions)
         } else {
-            const user = await JSON.parse(localStorage.getItem('caht-app-user'));
+            const user = await JSON.parse(localStorage.getItem('chat-app-user'));
             const { data } = await axios.post(`${setAvatarRoutes}/${user._id}`, {
                 image: avatars[selectedAvatar],
         })
