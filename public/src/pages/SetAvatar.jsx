@@ -28,10 +28,15 @@ export default function SetAvatar() {
     };
 
     // useEffect to check if user is logged in, if not redirect to login page
-    useEffect(async () => {
-        if (!localStorage.getItem('chat-app-user')) {
-            navigate('/login');
+    // note here cannot use the async function directly in the hooks 
+    useEffect(() => {
+        const CheckAvat = async()=> {
+
+            if (!localStorage.getItem('chat-app-user')) {
+                navigate('/');
+            }
         }
+       CheckAvat();
     }, []);
 
     // Function to set profile picture
@@ -62,20 +67,16 @@ export default function SetAvatar() {
     useEffect(() => {
         const fetchAvatars = async () => {
             const data = [];
-            // Fetch 4 avatars asynchronously
             for (let i = 0; i < 4; i++) {
-                const image = await axios.get(`${api}/${Math.round(Math.random()) * 1000}`);
-                // Convert fetched image data to base64 and store it in the data array
-                const buffer = new Buffer.from(image.data);
+                const image = await axios.get(`${api}/${Math.round(Math.random() * 1000)}`);
+                const buffer = Buffer.from(image.data);
                 data.push(buffer.toString('base64'));
             }
-            // Update state with fetched avatars and set loading status to false
             setAvatar(data);
             setIsLoading(false);
         };
         fetchAvatars();
     }, []);
-
     // Render the component with loader if still loading, otherwise render avatar selection UI
     return (
         <>
@@ -95,7 +96,7 @@ export default function SetAvatar() {
                                 return (
                                     <div key={index} className={`avatar ${selectedAvatar === index ? "selected" : ""}`}>
                                         {/* Render each avatar image with an onClick handler to select it */}
-                                        <img src={`data:image/svg+xml;base64, ${avatar}`} alt="avatar" onClick={() => setSelectedAvatar(index)} />
+                                        <img src={`data:image/svg+xml;base64,${avatar}`} alt="avatar" onClick={() => setSelectedAvatar(index)} />
                                     </div>
                                 )
                             })
