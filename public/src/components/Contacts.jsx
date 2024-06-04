@@ -124,6 +124,7 @@ position: relative;
     .avatar{
         img{
             height: 4rem;
+            padding: 7px;
             max-inline-size: 100%;
         }
     }
