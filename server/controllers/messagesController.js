@@ -9,7 +9,7 @@ module.exports.addMessage = async (req, res, next) => {
             users: {from, to},
             sender: from, 
         })
-        if(data)  return res.json({msg: "message added successfully"})
+        if(data) return res.json({msg: "message added successfully"})
         return res.json({msg: "failed to  add"})
     } catch (ex) {
         next(ex)
