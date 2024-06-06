@@ -5,10 +5,10 @@ import ChatInput from './ChatInput';
 import Messages from './Messages';
 import axios from 'axios';
 import { sendMessageRoute } from '../utils/APIRoutes';
- 
+
 export default function ChatContainer({ currentChat, currentUser }) {
     const handleSendMsg = async (msg) => {
-        await axios.post(sendMessageRoute, {
+          await axios.post(sendMessageRoute, {
             from: currentUser._id,
             to: currentChat._id,
             message: msg,
@@ -29,10 +29,10 @@ export default function ChatContainer({ currentChat, currentUser }) {
                                     <h3>{currentChat.username}</h3>
                                 </div>
                             </div>
-                                <Logout />
+                            <Logout />
                         </div>
                         <Messages />
-                        <ChatInput handleSendMsg = {handleSendMsg}/>
+                        <ChatInput handleSendMsg={handleSendMsg} />
                     </Container>
                 )
             }
