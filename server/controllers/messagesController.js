@@ -8,7 +8,7 @@ module.exports.addMessage = async (req, res, next) => {
       users: [from, to],
       sender: from,
     });
-    console.log({ from, to, message });
+    
     if (data) return res.json({ msg: "message added successfully" });
     return res.json({ msg: "failed to  add" });
   } catch (ex) {
