@@ -94,7 +94,7 @@ padding-bottom: 0.3rem;
 
 }
 .input-container{
-    width: 90%;
+    width: 98%;
     border-radius: 2rem;
     display: flex;
     align-items: center;
