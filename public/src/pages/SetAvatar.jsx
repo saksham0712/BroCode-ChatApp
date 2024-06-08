@@ -11,7 +11,7 @@ import { Buffer } from 'buffer';
 // Define SetAvatar component
 export default function SetAvatar() {
     // Define API endpoint for fetching avatars
-    const api = 'http://api.multiavatar.com/45678945';
+    const api = 'https://api.multiavatar.com/45678945';
     // Import useNavigate hook for navigation
     const navigate = useNavigate();
     // Define state variables for avatars, loading status, and selected avatar
