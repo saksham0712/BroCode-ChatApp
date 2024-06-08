@@ -13,6 +13,10 @@ app.use(express.json());
 app.use('/api/auth', userRoutes)
 app.use('/api/messages', messageRoute)
 
+app.get('/', (req, res)=> {
+    res.send("hello guys")
+})
+
 mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -22,7 +26,7 @@ mongoose.connect(process.env.MONGO_URL, {
     console.log(err.message)
 })
 
-const server = app.listen(process.env.PORT, ()=> {
+const server = app.listen(process.env.PORT || 3001, ()=> {
     console.log(`server satrted on port ${process.env.PORT}`);
     
 })
