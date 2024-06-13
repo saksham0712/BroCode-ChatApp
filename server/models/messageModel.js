@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// this is message schema
 const messageSchema = new mongoose.Schema(
   {
     message: {
