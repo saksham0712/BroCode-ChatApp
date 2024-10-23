@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../assets/logo.png';
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { registerRoute } from '../utils/APIRoutes';
+
 function Register() {
   const navigate = useNavigate();
   const [values, setValues] = useState({
@@ -13,7 +14,7 @@ function Register() {
     email: "",
     password: "",
     confirmPassword: "",
-  })
+  });
 
   const toastOptions = {
     position: "bottom-right",
@@ -21,70 +22,79 @@ function Register() {
     pauseOnHover: true,
     draggable: true,
     theme: "dark",
-  }
-  useEffect(()=>{
-    if(localStorage.getItem('chat-app-user')){
-      navigate('/')
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem('chat-app-user')) {
+      navigate('/');
     }
-  },[])
-  const handleSubmit = async(event) => {
+  }, [navigate]);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (handleValidation()) {
-      const { password, username, email } = values;
-      const {data} = await axios.post(registerRoute, {username, email, password,});
-      console.log({data})
-      if(data.status === false){
-        toast.error(data.msg, toastOptions)
+      const { username, email, password } = values;
+      try {
+        const { data } = await axios.post(registerRoute, { username, email, password });
+        if (data.status === false) {
+          toast.error(data.msg, toastOptions);
+        } else {
+          localStorage.setItem('chat-app-user', JSON.stringify(data.user));
+          toast.success("Registration successful!", toastOptions);
+          navigate('/');
+        }
+      } catch (error) {
+        console.error("Registration error:", error);
+        if (error.response) {
+          toast.error(error.response.data.msg || "An error occurred during registration", toastOptions);
+        } else {
+          toast.error("Could not connect to the server", toastOptions);
+        }
       }
-      if(data.status === true){
-        localStorage.setItem('chat-app-user', JSON.stringify(data.user))
-      }
-      navigate('/')
     }
-  
-  }
+  };
 
   const handleValidation = () => {
     const { password, confirmPassword, username, email } = values;
     if (password !== confirmPassword) {
-      toast.error("password and confirm password should be same.", toastOptions);
+      toast.error("Passwords do not match.", toastOptions);
       return false;
     } else if (username.length < 3) {
-      toast.error("username should be greater than 3 characters", toastOptions);
+      toast.error("Username should be greater than 3 characters", toastOptions);
       return false;
     } else if (password.length < 8) {
-      toast.error("Password should be equal or greater than 8 characters", toastOptions);
+      toast.error("Password should be at least 8 characters", toastOptions);
       return false;
     } else if (email === "") {
       toast.error("Email is required", toastOptions);
-      return false
+      return false;
     }
     return true;
-  }
+  };
 
   const handleChange = (event) => {
-    setValues({ ...values, [event.target.name]: event.target.value })
-  }
+    setValues({ ...values, [event.target.name]: event.target.value });
+  };
 
   return (
     <>
       <FromContainer>
-        <form onSubmit={(event) => handleSubmit(event)}>
+        <form onSubmit={handleSubmit}>
           <div className="brand">
-            <img src={Logo} alt="" />
+            <img src={Logo} alt="Logo" />
             <h1>BroCode</h1>
           </div>
-          <input type="text" name="username" id="username" placeholder='Username' onChange={e => handleChange(e)} />
-          <input type="email" name="email" id="email" placeholder='Email' onChange={e => handleChange(e)} />
-          <input type="password" name="password" id="pass" placeholder='Password' onChange={e => handleChange(e)} />
-          <input type="password" name="confirmPassword" id="confirmPass" placeholder='Confirm password' onChange={e => handleChange(e)} />
+          <input type="text" name="username" placeholder='Username' onChange={handleChange} />
+          <input type="email" name="email" placeholder='Email' onChange={handleChange} />
+          <input type="password" name="password" placeholder='Password' onChange={handleChange} />
+          <input type="password" name="confirmPassword" placeholder='Confirm password' onChange={handleChange} />
           <button type="submit">Create User</button>
-          <span>Already have an account ?<Link to='/login'>Login</Link></span>
+          <span>Already have an account? <Link to='/login'>Login</Link></span>
         </form>
       </FromContainer>
       <ToastContainer />
     </>
-  )
+  );
 }
 const FromContainer = styled.div`
 height: 100vh;
