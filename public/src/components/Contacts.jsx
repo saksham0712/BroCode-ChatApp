@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Logo from '../assets/logo.png';
+import Logout from './Logout';
 
 export default function Contacts({ contacts, currentUser, changeChat }) {
     const [currentUserName, setCurrentUserName] = useState(undefined);
@@ -56,6 +57,7 @@ export default function Contacts({ contacts, currentUser, changeChat }) {
         alignItems: 'center',
         overflow: 'auto',
         gap: '0.8rem',
+        minHeight: '40vh',
     };
 
     const contactStyle = (selected) => ({
@@ -82,8 +84,8 @@ export default function Contacts({ contacts, currentUser, changeChat }) {
         position: 'absolute',
         bottom: 0,
         alignItems: 'center',
-        justifyContent: 'center',
-        gap: '2rem',
+        justifyContent: 'space-between',
+        padding: '0 12px',
     };
 
     const currentUserImgStyle = {
@@ -120,12 +122,17 @@ export default function Contacts({ contacts, currentUser, changeChat }) {
                             </div>
                         ))}
                         <div style={currentUserStyle}>
+                            <div style={{display: 'flex', alignItems: 'center', gap: '1rem'}}>
+
                             <div className="avatar">
                                 <img src={`data:image/svg+xml;base64,${currentUserImage}`} alt="avatar" style={currentUserImgStyle} />
                             </div>
                             <div className="username">
                                 <h2 style={usernameStyle}>{currentUserName}</h2>
                             </div>
+                            </div>
+                            <Logout />
+
                         </div>
                     </div>
                 </div>

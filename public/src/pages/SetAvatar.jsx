@@ -84,7 +84,7 @@ export default function SetAvatar() {
                 </Container>
             ) : (
                 <Container>
-                    <div className="title-container">
+                    <div className="title-container" style={{ padding: "12px" }}>
                         <h1>Pick an Avatar as your profile pic &#128521;</h1>
                     </div>
                     <div className="avatars">
@@ -117,12 +117,16 @@ const Container = styled.div`
         max-inline-size: 100%;
     }
     .title-container {
+        padding: 12px
         h1 {
             color: white;
         }
     }
     .avatars {
         display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
         gap: 2rem;
         .avatar {
             border: 0.4rem solid transparent;
@@ -134,11 +138,17 @@ const Container = styled.div`
             transition: 0.5s ease-in-out;
             img {
                 height: 6rem;
+                @media screen and (min-width: 50px) and (max-width: 680px) {
+                    width: 100%;
+                }
             }
         }
         .selected {
             border: 0.4rem solid #4e0;
         }
+         @media screen and (min-width: 50px) and (max-width: 680px) {
+            gap: 0.5rem;
+        }   
     }
     .submit-btn {
         background-color: #997af0;
