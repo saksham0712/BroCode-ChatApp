@@ -58,6 +58,7 @@ export default function Contacts({ contacts, currentUser, changeChat }) {
         overflow: 'auto',
         gap: '0.8rem',
         minHeight: '40vh',
+        marginBottom: '10vh',
     };
 
     const contactStyle = (selected) => ({

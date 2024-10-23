@@ -92,8 +92,8 @@ const Container = styled.div`
     @media screen and (min-width: 50px) and (max-width: 680px) {
         display: flex;
         flex-direction: column;
-          height: 100%;
-          width: 100%;
+          height: 95vh;
+          width: 95%;
     }
   }
 `;
