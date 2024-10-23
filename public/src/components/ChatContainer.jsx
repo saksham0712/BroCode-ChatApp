@@ -114,6 +114,7 @@ display: grid;
 grid-template-rows: 10% 78% 12%;
 gap: 0.1rem;
 overflow: hidden;
+height: 100%;
 @media screen and (min-width: 720px) and (max-width: 1080px){
     grid-template-rows: 15% 70% 15%;
 
@@ -151,7 +152,7 @@ overflow: hidden;
         align-items: center;
         .content{
 
-            max-width: 40%;
+            max-width: 90%;
             overflow-wrap: break-word;
             padding: 1rem;
             font-size: 1.1rem;

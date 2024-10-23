@@ -53,6 +53,10 @@ align-items: center;
 background-color: #080420;
 padding: 0.2rem;
 padding-bottom: 0.3rem;
+@media screen and (min-width: 50px) and (max-width: 680px) {
+display: grid;
+grid-template-columns: 10% 90%;
+}
 .button-container{
     display: flex;
     align-items: center;
@@ -90,7 +94,7 @@ padding-bottom: 0.3rem;
             }
         }
     }
-// hello i am working on it
+
 
 }
 .input-container{

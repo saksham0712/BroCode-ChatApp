@@ -1,28 +1,25 @@
-import React from 'react'
-import styled from 'styled-components'
-import Robot from '../assets/robot1.gif'
-export default function Welcome({currentUser}) {
-  return (
-    <Container>
-      <img src={Robot} alt="Robot" />
-      <h1>
-        Welcome, <span>{currentUser}</span>
-      </h1>
-      <h3>Please select a Chat to start Messaging.</h3>
-    </Container>
-  )
-}
-const Container = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-color: white;
-img{
-    height: 20rem;
+import React from 'react';
+import Robot from '../assets/robot1.gif';
 
+export default function Welcome({ currentUser }) {
+  return (
+    <div style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'column',
+      color: 'white',
+      margin: 'auto',
+    }}>
+      <img
+        src={Robot}
+        alt="Robot"
+        style={{ height: '40%' }}
+      />
+      <h1 style={{ textAlign: 'center', margin: '1rem' }}>
+        Welcome, <span style={{ color: '#66d9ef' }}>{currentUser}</span>
+      </h1>
+      <h3 style={{textAlign: 'center', margin: '1rem'}}>Please Click on BroCode and Start your Baat-cheet</h3>
+    </div>
+  );
 }
-span{
-    color: #66d9ef;
-}
-`

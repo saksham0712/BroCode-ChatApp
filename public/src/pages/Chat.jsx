@@ -89,8 +89,11 @@ const Container = styled.div`
     display: grid;
     grid-template-columns: 25% 75%;
 
-    @media screen and (min-width: 360px) and (max-width: 480px) {
-      grid-template-rows: 35% 65%; 
+    @media screen and (min-width: 50px) and (max-width: 680px) {
+        display: flex;
+        flex-direction: column;
+          height: 100%;
+          width: 100%;
     }
   }
 `;

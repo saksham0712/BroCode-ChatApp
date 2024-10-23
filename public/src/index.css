@@ -14,3 +14,33 @@ body{
     max-width: 100vw;
     overflow: hidden;
 }
+/* For WebKit browsers */
+::-webkit-scrollbar {
+    width: 8px;
+    /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: #33333300;
+    /* Background of the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ffffff;
+    /* Color of the scrollbar thumb */
+    border-radius: 10px;
+    /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #cdcdcd;
+    /* Color on hover */
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: thin;
+    /* Makes scrollbar thin */
+    scrollbar-color: #7d7d7d #33333300;
+    /* Thumb and track color */
+}
