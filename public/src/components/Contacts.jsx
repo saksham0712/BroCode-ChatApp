@@ -27,11 +27,10 @@ export default function Contacts({ contacts, currentUser, changeChat }) {
 
     const containerStyle = {
         display: 'grid',
-        gridTemplateRows: '10% 75% 15%',
+        gridTemplateRows: '10% 80%',
         overflow: 'hidden',
         backgroundColor: '#080420',
         position: 'relative',
-        marginTop: '10px',
     };
 
     const brandStyle = {
@@ -40,6 +39,7 @@ export default function Contacts({ contacts, currentUser, changeChat }) {
         alignItems: 'center',
         gap: '1rem',
         margin: 'auto',
+        padding: '10px',
     };
 
     const imgStyle = {
@@ -57,8 +57,9 @@ export default function Contacts({ contacts, currentUser, changeChat }) {
         alignItems: 'center',
         overflow: 'auto',
         gap: '0.8rem',
+        overflowX: 'hidden',
         minHeight: '30vh',
-        marginBottom: '10vh',
+
     };
 
     const contactStyle = (selected) => ({
