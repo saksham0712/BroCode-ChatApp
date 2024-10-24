@@ -1,111 +1,101 @@
-import React, { useState, useEffect, useRef } from 'react'
-import styled from 'styled-components'
+import React, { useState, useEffect, useRef } from 'react';
+import styled from 'styled-components';
 import Logout from './Logout';
 import ChatInput from './ChatInput';
-import {v4 as uuidv4} from 'uuid'
+import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import { getAllMessagesRoute, sendMessageRoute } from '../utils/APIRoutes';
 
-
 export default function ChatContainer({ currentChat, currentUser, socket }) {
-
     const [messages, setMessages] = useState([]);
-    const [arrivalmsg, setArrivalmsg] = useState(null);
-const scrollRef = useRef();
+    const [arrivalMsg, setArrivalMsg] = useState(null);
+    const scrollRef = useRef();
 
     useEffect(() => {
-
-        const ok = async () => {
+        const fetchMessages = async () => {
             if (currentChat && currentUser) {
                 try {
-
                     const response = await axios.post(getAllMessagesRoute, {
                         from: currentUser._id,
                         to: currentChat._id,
-
-                    })
+                    });
                     if (Array.isArray(response.data)) {
-
                         setMessages(response.data);
-                        // console.log(response.data)
                     } else {
-                        console.error("expected array", typeof response.data)
+                        console.error("expected array", typeof response.data);
                     }
                 } catch (error) {
-                    console.error("this is the error", error)
+                    console.error("this is the error", error);
                 }
             }
-        }
-        ok();
-    }, [currentChat, currentChat])
+        };
+        fetchMessages();
+    }, [currentChat, currentUser]); // Corrected dependency
 
     const handleSendMsg = async (msg) => {
         await axios.post(sendMessageRoute, {
             from: currentUser._id,
             to: currentChat._id,
             message: msg,
-        })
+        });
         socket.current.emit('send-msg', {
             to: currentChat._id,
             from: currentUser._id,
             message: msg,
-        })
+        });
 
-        const msgs = [...messages];
-        msgs.push({ fromSelf: true, message: msg });
-        setMessages(msgs)
-    }
+        const msgs = [...messages, { fromSelf: true, message: msg }];
+        setMessages(msgs);
+    };
+
     useEffect(() => {
         if (socket.current) {
             socket.current.on("msg-recieve", (msg) => {
-                setArrivalmsg({ fromSelf: false, message: msg })
-            })
+                setArrivalMsg({ fromSelf: false, message: msg });
+            });
         }
-    }, [])
+    }, [socket]);
 
-    useEffect(() => { arrivalmsg && setMessages((prev) => [...prev, arrivalmsg]) }, [arrivalmsg])
+    useEffect(() => {
+        if (arrivalMsg) {
+            setMessages((prev) => [...prev, arrivalMsg]);
+        }
+    }, [arrivalMsg]);
 
-    useEffect(()=>{
-        scrollRef.current?.scrollIntoView({behaviour: "smooth"})
-    },[messages])
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages]);
+
     return (
         <>
-            {
-                currentChat && (
-
-                    <Container>
-                        <div className="chat-header">
-                            <div className="user-details">
-                                <div className="avatar">
-                                    <img src={`data:image/svg+xml;base64,${currentChat.avatarImage}`} alt="avatar" />
-                                </div>
-                                <div className="username">
-                                    {/* gidgdfg */}
-                                    <h3>{currentChat.username}</h3>
-                                </div>
+            {currentChat && (
+                <Container>
+                    <div className="chat-header">
+                        <div className="user-details">
+                            <div className="avatar">
+                                <img src={`data:image/svg+xml;base64,${currentChat.avatarImage}`} alt="avatar" />
                             </div>
-
+                            <div className="username">
+                                <h3>{currentChat.username}</h3>
+                            </div>
                         </div>
-                        <div className="chat-messages">
-                            {messages.map((message) => (
-                                <div key={uuidv4()} ref={scrollRef}>
-                                    <div className={`message ${message.fromSelf ? "sender" : "received"}`}>
-                                        <div className="content">
-                                            <p>
-                                                {message.message}
-                                            </p>
-                                        </div>
+                    </div>
+                    <div className="chat-messages">
+                        {messages.map((message) => (
+                            <div key={message.id || uuidv4()} ref={scrollRef}>
+                                <div className={`message ${message.fromSelf ? "sender" : "received"}`}>
+                                    <div className="content">
+                                        <p>{message.message}</p>
                                     </div>
                                 </div>
-                            ))
-                            }
-                        </div>
-                        <ChatInput handleSendMsg={handleSendMsg} />
-                    </Container>
-                )
-            }
+                            </div>
+                        ))}
+                    </div>
+                    <ChatInput handleSendMsg={handleSendMsg} />
+                </Container>
+            )}
         </>
-    )
+    );
 }
 
 const Container = styled.div`
