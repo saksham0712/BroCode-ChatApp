@@ -57,7 +57,7 @@ export default function Contacts({ contacts, currentUser, changeChat }) {
         alignItems: 'center',
         overflow: 'auto',
         gap: '0.8rem',
-        minHeight: '40vh',
+        minHeight: '30vh',
         marginBottom: '10vh',
     };
 
@@ -82,7 +82,7 @@ export default function Contacts({ contacts, currentUser, changeChat }) {
         backgroundColor: '#0d0d30',
         display: 'flex',
         width: '100%',
-        position: 'absolute',
+        // position: 'absolute',
         bottom: 0,
         alignItems: 'center',
         justifyContent: 'space-between',
