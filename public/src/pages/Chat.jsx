@@ -92,9 +92,9 @@ const Container = styled.div`
     @media screen and (min-width: 50px) and (max-width: 680px) {
         display: flex;
         flex-direction: column;
-        margin: 20px auto;
           height: 100vh;
           width: 100%;
+          overflow: auto;
     }
   }
 `;
